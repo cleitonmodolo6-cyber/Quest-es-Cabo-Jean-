@@ -5,299 +5,62 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Simulado — Direito Disciplinar PMPR</title>
 <style>
-:root{--az:#1a3a5c;--az2:#2e5f8a;--ou:#c9a227;--vd:#1e7a3c;--vm:#b3261e}
-*{box-sizing:border-box}
-body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:linear-gradient(160deg,#e9eef5,#f7f9fc);color:#1c2733;line-height:1.55}
-header{background:linear-gradient(135deg,var(--az),var(--az2));color:#fff;padding:24px 16px;text-align:center;border-bottom:5px solid var(--ou)}
-header h1{margin:0 0 4px;font-size:1.4rem}header p{margin:0;opacity:.85;font-size:.88rem}
-.container{max-width:860px;margin:0 auto;padding:22px 16px 90px}
-.start-card{background:#fff;border-radius:16px;padding:28px 24px;box-shadow:0 6px 22px rgba(0,0,0,.08);text-align:center}
-.start-card h2{margin:0 0 6px;color:var(--az)}.start-card p{margin:0 0 20px;color:#5a6b7d}
-.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
-@media(max-width:520px){.mode-grid{grid-template-columns:1fr}}
-.mode-btn{border:2px solid #e3e8ef;border-radius:14px;background:#fff;padding:20px 14px;cursor:pointer;transition:.2s;text-align:left}
-.mode-btn:hover{border-color:var(--az2);background:#f7fafd}
-.mode-btn.sel{border-color:var(--az);background:#eaf2fb}
-.mode-btn .ico{font-size:1.6rem;display:block;margin-bottom:6px}
-.mode-btn b{display:block;color:var(--az)}.mode-btn small{color:#5a6b7d;font-size:.82rem}
-.link-box{display:none;background:#f0f5fa;border:1px dashed var(--az2);border-radius:10px;padding:12px;margin-bottom:16px;font-size:.78rem;word-break:break-all;color:#2e5f8a}
-.link-box.show{display:block}
-.btn{background:var(--az);color:#fff;border:none;border-radius:10px;padding:13px 26px;font-size:1rem;font-weight:700;cursor:pointer;transition:.2s;box-shadow:0 4px 12px rgba(26,58,92,.25)}
-.btn:hover{background:var(--az2)}.btn:disabled{opacity:.45;cursor:not-allowed}
-.btn-sm{padding:9px 16px;font-size:.86rem;box-shadow:none}
-.btn-outline{background:#fff;color:var(--az);border:2px solid var(--az);box-shadow:none}
-.btn-outline:hover{background:#eef3f9}.btn-verde{background:var(--vd)}.btn-verde:hover{background:#186a32}
-.quiz-wrap{display:none}.quiz-wrap.show{display:block}
-.topbar{position:sticky;top:0;z-index:40;background:#fff;border-radius:12px;padding:12px 16px;margin-bottom:16px;box-shadow:0 4px 14px rgba(0,0,0,.08);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.pill{background:#eef3f9;color:var(--az2);font-size:.8rem;font-weight:700;padding:5px 12px;border-radius:20px;white-space:nowrap}
-.bar{flex:1;min-width:120px;height:10px;background:#e3e8ef;border-radius:10px;overflow:hidden}
-.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ou),#e8c96a);transition:width .3s}
-.q-card{background:#fff;border-radius:14px;padding:24px 22px;box-shadow:0 4px 16px rgba(0,0,0,.07);border-left:5px solid var(--az2)}
-.q-meta{display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}
-.q-num{background:var(--az);color:#fff;font-size:.78rem;font-weight:700;padding:4px 11px;border-radius:20px}
-.tag{font-size:.72rem;background:#eef3f9;color:var(--az2);padding:3px 9px;border-radius:20px;border:1px solid #d7e2ee}
-.q-text{font-size:1.03rem;font-weight:600;margin:10px 0 18px}
-.alt{display:flex;gap:12px;border:2px solid #e3e8ef;border-radius:10px;padding:12px 14px;margin-bottom:10px;cursor:pointer;transition:.16s;background:#fff}
-.alt:hover{border-color:var(--az2);background:#f7fafd}
-.alt .letter{width:28px;height:28px;flex:0 0 28px;border-radius:50%;background:#eef3f9;color:var(--az);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:.85rem}
-.alt.sel{border-color:var(--az);background:#eaf2fb}.alt.sel .letter{background:var(--az);color:#fff}
-.alt.correct{border-color:var(--vd);background:#e8f6ec}.alt.correct .letter{background:var(--vd);color:#fff}
-.alt.wrong{border-color:var(--vm);background:#fdecea}.alt.wrong .letter{background:var(--vm);color:#fff}
-.alt.locked{cursor:default}.alt.locked:hover{background:inherit}
-.feedback{margin-top:16px;border-radius:12px;padding:16px 18px;display:none;font-size:.93rem}
-.feedback.show{display:block}
-.feedback.ok{background:#e8f6ec;border-left:4px solid var(--vd)}
-.feedback.no{background:#fdecea;border-left:4px solid var(--vm)}
-.feedback .titulo{display:block;font-weight:700;margin-bottom:10px}
-.feedback.ok .titulo{color:var(--vd)}.feedback.no .titulo{color:var(--vm)}
-.fb-item{margin-bottom:9px;padding-left:10px;border-left:3px solid #cfd8e3}
-.fb-item.cert{border-left-color:var(--vd)}.fb-item.errad{border-left-color:var(--vm)}
-.fb-item b{color:var(--az)}.fb-item span{display:block;color:#3c4c5d;font-size:.88rem;margin-top:2px}
-.fb-gab{margin-top:6px;padding-top:10px;border-top:1px dashed #c3d0dd;font-size:.9rem;color:#2e5f8a}
-.nav{display:flex;justify-content:space-between;gap:10px;margin-top:18px;flex-wrap:wrap}
-.result{display:none;background:linear-gradient(135deg,#fff,#f0f5fa);border:2px solid var(--ou);border-radius:16px;padding:30px 24px;text-align:center;box-shadow:0 8px 26px rgba(0,0,0,.1)}
-.result.show{display:block}
-.result h2{color:var(--az);margin:0 0 8px}
-.big{font-size:3rem;font-weight:800;color:var(--ou);line-height:1}
-.stats{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:20px 0}
-.stat{background:#fff;border-radius:12px;padding:14px 22px;box-shadow:0 2px 8px rgba(0,0,0,.06);min-width:100px}
-.stat b{display:block;font-size:1.5rem;color:var(--az)}.stat span{font-size:.78rem;color:#5a6b7d}
-.mention{font-size:1.1rem;font-weight:700;margin-top:6px}
-.mention.alto{color:var(--vd)}.mention.mid{color:#c9a227}.mention.baixo{color:var(--vm)}
-.review{margin-top:24px;text-align:left}.review h3{color:var(--az);font-size:1rem;margin:0 0 12px}
-.rev-item{background:#fff;border-radius:10px;padding:12px 14px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,.05);font-size:.9rem;border-left:4px solid #ccc}
-.rev-item.ok{border-left-color:var(--vd)}.rev-item.no{border-left-color:var(--vm)}
-.rev-item b{color:var(--az)}.rev-item .det{display:block;color:#5a6b7d;font-size:.84rem;margin-top:4px}
-footer{text-align:center;padding:20px;color:#7b8a9a;font-size:.8rem}
-.hidden{display:none!important}
+:root{--az:#1a3a5c;--az2:#2e5f8a;--ou:#c9a227;--vd:#1e7a3c;--vm:#b3261e}*{box-sizing:border-box}body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:linear-gradient(160deg,#e9eef5,#f7f9fc);color:#1c2733;line-height:1.55}header{background:linear-gradient(135deg,var(--az),var(--az2));color:#fff;padding:24px 16px;text-align:center;border-bottom:5px solid var(--ou)}header h1{margin:0 0 4px;font-size:1.4rem}header p{margin:0;opacity:.85;font-size:.88rem}.container{max-width:860px;margin:0 auto;padding:22px 16px 90px}.start-card{background:#fff;border-radius:16px;padding:28px 24px;box-shadow:0 6px 22px rgba(0,0,0,.08);text-align:center}.start-card h2{margin:0 0 6px;color:var(--az)}.start-card p{margin:0 0 20px;color:#5a6b7d}.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}@media(max-width:520px){.mode-grid{grid-template-columns:1fr}}.mode-btn{border:2px solid #e3e8ef;border-radius:14px;background:#fff;padding:20px 14px;cursor:pointer;transition:.2s;text-align:left}.mode-btn:hover{border-color:var(--az2);background:#f7fafd}.mode-btn.sel{border-color:var(--az);background:#eaf2fb}.mode-btn .ico{font-size:1.6rem;display:block;margin-bottom:6px}.mode-btn b{display:block;color:var(--az)}.mode-btn small{color:#5a6b7d;font-size:.82rem}.link-box{display:none;background:#f0f5fa;border:1px dashed var(--az2);border-radius:10px;padding:12px;margin-bottom:16px;font-size:.78rem;word-break:break-all;color:#2e5f8a}.link-box.show{display:block}.btn{background:var(--az);color:#fff;border:none;border-radius:10px;padding:13px 26px;font-size:1rem;font-weight:700;cursor:pointer;transition:.2s;box-shadow:0 4px 12px rgba(26,58,92,.25)}.btn:hover{background:var(--az2)}.btn:disabled{opacity:.45;cursor:not-allowed}.btn-sm{padding:9px 16px;font-size:.86rem;box-shadow:none}.btn-outline{background:#fff;color:var(--az);border:2px solid var(--az);box-shadow:none}.btn-outline:hover{background:#eef3f9}.btn-verde{background:var(--vd)}.btn-verde:hover{background:#186a32}.quiz-wrap{display:none}.quiz-wrap.show{display:block}.topbar{position:sticky;top:0;z-index:40;background:#fff;border-radius:12px;padding:12px 16px;margin-bottom:16px;box-shadow:0 4px 14px rgba(0,0,0,.08);display:flex;align-items:center;gap:12px;flex-wrap:wrap}.pill{background:#eef3f9;color:var(--az2);font-size:.8rem;font-weight:700;padding:5px 12px;border-radius:20px;white-space:nowrap}.bar{flex:1;min-width:120px;height:10px;background:#e3e8ef;border-radius:10px;overflow:hidden}.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ou),#e8c96a);transition:width .3s}.q-card{background:#fff;border-radius:14px;padding:24px 22px;box-shadow:0 4px 16px rgba(0,0,0,.07);border-left:5px solid var(--az2)}.q-meta{display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}.q-num{background:var(--az);color:#fff;font-size:.78rem;font-weight:700;padding:4px 11px;border-radius:20px}.tag{font-size:.72rem;background:#eef3f9;color:var(--az2);padding:3px 9px;border-radius:20px;border:1px solid #d7e2ee}.q-text{font-size:1.03rem;font-weight:600;margin:10px 0 18px}.alt{display:flex;gap:12px;border:2px solid #e3e8ef;border-radius:10px;padding:12px 14px;margin-bottom:10px;cursor:pointer;transition:.16s;background:#fff}.alt:hover{border-color:var(--az2);background:#f7fafd}.alt .letter{width:28px;height:28px;flex:0 0 28px;border-radius:50%;background:#eef3f9;color:var(--az);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:.85rem}.alt.sel{border-color:var(--az);background:#eaf2fb}.alt.sel .letter{background:var(--az);color:#fff}.alt.correct{border-color:var(--vd);background:#e8f6ec}.alt.correct .letter{background:var(--vd);color:#fff}.alt.wrong{border-color:var(--vm);background:#fdecea}.alt.wrong .letter{background:var(--vm);color:#fff}.alt.locked{cursor:default}.alt.locked:hover{background:inherit}.feedback{margin-top:16px;border-radius:12px;padding:16px 18px;display:none;font-size:.93rem}.feedback.show{display:block}.feedback.ok{background:#e8f6ec;border-left:4px solid var(--vd)}.feedback.no{background:#fdecea;border-left:4px solid var(--vm)}.feedback .titulo{display:block;font-weight:700;margin-bottom:10px}.feedback.ok .titulo{color:var(--vd)}.feedback.no .titulo{color:var(--vm)}.fb-item{margin-bottom:9px;padding-left:10px;border-left:3px solid #cfd8e3}.fb-item.cert{border-left-color:var(--vd)}.fb-item.errad{border-left-color:var(--vm)}.fb-item b{color:var(--az)}.fb-item span{display:block;color:#3c4c5d;font-size:.88rem;margin-top:2px}.fb-gab{margin-top:6px;padding-top:10px;border-top:1px dashed #c3d0dd;font-size:.9rem;color:#2e5f8a}.nav{display:flex;justify-content:space-between;gap:10px;margin-top:18px;flex-wrap:wrap}.result{display:none;background:linear-gradient(135deg,#fff,#f0f5fa);border:2px solid var(--ou);border-radius:16px;padding:30px 24px;text-align:center;box-shadow:0 8px 26px rgba(0,0,0,.1)}.result.show{display:block}.result h2{color:var(--az);margin:0 0 8px}.big{font-size:3rem;font-weight:800;color:var(--ou);line-height:1}.stats{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:20px 0}.stat{background:#fff;border-radius:12px;padding:14px 22px;box-shadow:0 2px 8px rgba(0,0,0,.06);min-width:100px}.stat b{display:block;font-size:1.5rem;color:var(--az)}.stat span{font-size:.78rem;color:#5a6b7d}.mention{font-size:1.1rem;font-weight:700;margin-top:6px}.mention.alto{color:var(--vd)}.mention.mid{color:#c9a227}.mention.baixo{color:var(--vm)}.review{margin-top:24px;text-align:left}.review h3{color:var(--az);font-size:1rem;margin:0 0 12px}.rev-item{background:#fff;border-radius:10px;padding:12px 14px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,.05);font-size:.9rem;border-left:4px solid #ccc}.rev-item.ok{border-left-color:var(--vd)}.rev-item.no{border-left-color:var(--vm)}.rev-item b{color:var(--az)}.rev-item .det{display:block;color:#5a6b7d;font-size:.84rem;margin-top:4px}footer{text-align:center;padding:20px;color:#7b8a9a;font-size:.8rem}.hidden{display:none!important}
 </style>
 </head>
 <body>
-<header>
-  <h1>🎯 Simulado — Direito Disciplinar PMPR</h1>
-  <p>Questões 1 a 10 · Lei 1.943/54 · Decreto 5.075/98 · RDE 4.346/02 · Lei 16.544/10 · Portarias CG</p>
-</header>
+<header><h1>🎯 Simulado — Direito Disciplinar PMPR</h1><p>Questões 1 a 10 · Lei 1.943/54 · Decreto 5.075/98 · RDE 4.346/02 · Lei 16.544/10 · Portarias CG</p></header>
 <div class="container">
-  <div class="start-card" id="startCard">
-    <h2>Escolha o modo de resposta</h2>
-    <p>Responda uma a uma e confira cada questão individualmente.</p>
-    <div class="mode-grid">
-      <div class="mode-btn sel" id="modeOrdem"><span class="ico">1️⃣</span><b>Ordem sequencial</b><small>Questões 1 → 10, alternativas A–D.</small></div>
-      <div class="mode-btn" id="modeAleatorio"><span class="ico">🔀</span><b>Ordem aleatória</b><small>Embaralha questões e alternativas. Gera um link.</small></div>
-    </div>
-    <div class="link-box" id="linkBox"></div>
-    <button class="btn" id="btnComecar">▶ Começar</button>
-  </div>
-  <div class="quiz-wrap" id="quizWrap">
-    <div class="topbar">
-      <span class="pill" id="pillQ">Questão 1 de 10</span>
-      <div class="bar"><span id="barFill"></span></div>
-      <span class="pill" id="pillResp">0 respondidas</span>
-      <button class="btn btn-sm btn-outline" id="btnResultado">Ver resultado</button>
-    </div>
-    <div id="quizArea"></div>
-    <div class="nav">
-      <button class="btn btn-outline btn-sm" id="btnAnterior">← Anterior</button>
-      <button class="btn btn-verde btn-sm" id="btnConferir">🔍 Conferir esta questão</button>
-      <button class="btn btn-sm" id="btnProxima">Próxima →</button>
-    </div>
-  </div>
-  <div class="result" id="resultado">
-    <h2>Resultado Final</h2>
-    <div class="big" id="pct">0%</div>
-    <p id="resumo"></p>
-    <div class="stats">
-      <div class="stat"><b id="stAcertos">0</b><span>Acertos</span></div>
-      <div class="stat"><b id="stErros">0</b><span>Erros</span></div>
-      <div class="stat"><b id="stTotal">0</b><span>Respondidas</span></div>
-    </div>
-    <div class="mention" id="mention"></div>
-    <div class="review" id="review"></div>
-    <div style="margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <button class="btn" id="btnRefazer">🔄 Refazer</button>
-      <button class="btn btn-outline" id="btnInicio">🏠 Início</button>
-    </div>
-  </div>
-</div>
+<div class="start-card" id="startCard"><h2>Escolha o modo de resposta</h2><p>Responda uma a uma e confira cada questão individualmente.</p>
+<div class="mode-grid"><div class="mode-btn sel" id="modeOrdem"><span class="ico">1️⃣</span><b>Ordem sequencial</b><small>Questões 1 → 10, alternativas A–D.</small></div><div class="mode-btn" id="modeAleatorio"><span class="ico">🔀</span><b>Ordem aleatória</b><small>Embaralha questões e alternativas. Gera um link.</small></div></div>
+<div class="link-box" id="linkBox"></div><button class="btn" id="btnComecar">▶ Começar</button></div>
+<div class="quiz-wrap" id="quizWrap">
+<div class="topbar"><span class="pill" id="pillQ">Questão 1 de 10</span><div class="bar"><span id="barFill"></span></div><span class="pill" id="pillResp">0 respondidas</span><button class="btn btn-sm btn-outline" id="btnResultado">Ver resultado</button></div>
+<div id="quizArea"></div>
+<div class="nav"><button class="btn btn-outline btn-sm" id="btnAnterior">← Anterior</button><button class="btn btn-verde btn-sm" id="btnConferir">🔍 Conferir esta questão</button><button class="btn btn-sm" id="btnProxima">Próxima →</button></div></div>
+<div class="result" id="resultado"><h2>Resultado Final</h2><div class="big" id="pct">0%</div><p id="resumo"></p>
+<div class="stats"><div class="stat"><b id="stAcertos">0</b><span>Acertos</span></div><div class="stat"><b id="stErros">0</b><span>Erros</span></div><div class="stat"><b id="stTotal">0</b><span>Respondidas</span></div></div>
+<div class="mention" id="mention"></div><div class="review" id="review"></div>
+<div style="margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><button class="btn" id="btnRefazer">🔄 Refazer</button><button class="btn btn-outline" id="btnInicio">🏠 Início</button></div></div></div>
 <footer>Material de revisão — uso didático.</footer>
-<script>const BANCO=[{tag:"Lei 1.943/1954 · Custódia do Militar",enunciado:"Durante a folga, um Soldado da PMPR é preso em flagrante por crime comum por autoridade policial civil, que lavra o flagrante e o mantém na cela comum da delegacia por 3 dias. À luz da Lei Estadual nº 1.943/1954, a conduta da autoridade civil quanto à custódia foi:",
-alts:[
-{t:"Correta, pois em crimes comuns cometidos durante a folga cessa a prerrogativa de recolhimento em Unidade Militar.",e:"Não há essa cessação. A lei garante o recolhimento em unidade militar mesmo em crime comum."},
-{t:"Incorreta, pois, efetuada a prisão, a autoridade policial civil deve fazer a entrega do preso imediatamente à autoridade militar após a lavratura do flagrante.",c:true},
-{t:"Correta, desde que a cela comum esteja separada de presos já condenados por sentença transitada em julgado.",e:"A separação de presos não legitima a manutenção em cela comum; o dever é a entrega imediata (Art. 269, § 1º)."},
-{t:"Incorreta, pois militares estaduais somente podem ser presos em flagrante delito se a infração for estritamente um crime militar.",e:"A prisão por crime comum é possível; a lei assegura a entrega à autoridade militar após o flagrante."}],
-gab:"B",just:"Art. 269, § 1º da Lei nº 1.943/1954: efetuada a prisão e lavrado o flagrante, a autoridade policial fará a entrega do preso imediatamente à autoridade militar."},
+<script>
+const BANCO=[
+{tag:"Lei 1.943/1954 · Custódia",enunciado:"Durante a folga, um Soldado da PMPR é preso em flagrante por crime comum por autoridade policial civil, que lavra o flagrante e o mantém na cela comum da delegacia por 3 dias. À luz da Lei Estadual nº 1.943/1954, a conduta da autoridade civil quanto à custódia foi:",
+alts:[{t:"Correta, pois em crimes comuns cometidos durante a folga cessa a prerrogativa de recolhimento em Unidade Militar.",e:"Não há essa cessação. A lei garante o recolhimento em unidade militar mesmo em crime comum."},{t:"Incorreta, pois, efetuada a prisão, a autoridade policial civil deve fazer a entrega do preso imediatamente à autoridade militar após a lavratura do flagrante.",c:true},{t:"Correta, desde que a cela comum esteja separada de presos já condenados por sentença transitada em julgado.",e:"A separação de presos não legitima a manutenção em cela comum; o dever é a entrega imediata."},{t:"Incorreta, pois militares estaduais somente podem ser presos em flagrante delito se a infração for estritamente um crime militar.",e:"A prisão por crime comum é possível; a lei assegura a entrega à autoridade militar após o flagrante."}],gab:"B",just:"Art. 269, § 1º da Lei nº 1.943/1954: efetuada a prisão e lavrado o flagrante, a autoridade policial fará a entrega do preso imediatamente à autoridade militar."},
 {tag:"Decreto 5.075/1998 · Vedações",enunciado:"O Cabo PM Silva, na ativa, constitui empresa de comércio de eletrônicos como sócio-administrador e passa a prestar segurança privada remunerada em supermercado. Conforme o Decreto nº 5.075/1998:",
-alts:[
-{t:"As duas condutas do militar são vedadas pelo regulamento ético da corporação.",c:true},
-{t:"O comércio é permitido nas folgas, mas a segurança privada exige autorização do Comandante-Geral.",e:"O comércio com gestão é vedado e a segurança privada é vedada em qualquer hipótese."},
-{t:"Ambas as atividades são permitidas, desde que não coincidam com os turnos de serviço.",e:"A folga não legitima; o Art. 7º, § 3º veda ambas independentemente do horário."},
-{t:"A segurança privada é permitida a praças estáveis, sendo vedada apenas a participação comercial.",e:"A segurança privada é vedada a todo militar da ativa."}],
-gab:"A",just:"Art. 7º, § 3º do Decreto nº 5.075/1998 veda exercer segurança privada e fazer parte de firma comercial ou nela exercer função/emprego remunerado (admite-se apenas acionista/quotista sem gestão)."},
+alts:[{t:"As duas condutas do militar são vedadas pelo regulamento ético da corporação.",c:true},{t:"O comércio é permitido nas folgas, mas a segurança privada exige autorização do Comandante-Geral.",e:"O comércio com gestão é vedado e a segurança privada é vedada em qualquer hipótese."},{t:"Ambas as atividades são permitidas, desde que não coincidam com os turnos de serviço.",e:"A folga não legitima; o Art. 7º, § 3º veda ambas independentemente do horário."},{t:"A segurança privada é permitida a praças estáveis, sendo vedada apenas a participação comercial.",e:"A segurança privada é vedada a todo militar da ativa."}],gab:"A",just:"Art. 7º, § 3º do Decreto nº 5.075/1998 veda exercer segurança privada e fazer parte de firma comercial ou nela exercer função/emprego remunerado."},
 {tag:"Lei 1.943/1954 · Deveres",enunciado:"Nos termos do Art. 102 da Lei Estadual nº 1.943/1954, constituem deveres fundamentais do militar estadual, entre outros:",
-alts:[
-{t:"Exercer com dedicação o comércio local nos períodos de licença e atuar em segurança privada nas folgas.",e:"Atividades vedadas ao militar da ativa (Art. 107 da Lei 1.943/54 e Art. 7º, §3º do Dec. 5.075/98)."},
-{t:"Acatar a autoridade civil e satisfazer, com pontualidade, os compromissos pecuniários assumidos.",c:true},
-{t:"Manifestar-se publicamente sobre assuntos de política partidária mediante postagens institucionais.",e:"Manifestações político-partidárias são proibidas ao militar da ativa."},
-{t:"Prestar depoimento em processos disciplinares apenas quando remunerado por diárias.",e:"Prestar depoimento é dever funcional e não depende de diárias."}],
-gab:"B",just:"Art. 102, alíneas 'e' e 'f' da Lei nº 1.943/1954: é dever acatar a autoridade civil e satisfazer com pontualidade os compromissos pecuniários assumidos."},
+alts:[{t:"Exercer com dedicação o comércio local nos períodos de licença e atuar em segurança privada nas folgas.",e:"Atividades vedadas ao militar da ativa."},{t:"Acatar a autoridade civil e satisfazer, com pontualidade, os compromissos pecuniários assumidos.",c:true},{t:"Manifestar-se publicamente sobre assuntos de política partidária mediante postagens institucionais.",e:"Manifestações político-partidárias são proibidas ao militar da ativa."},{t:"Prestar depoimento em processos disciplinares apenas quando remunerado por diárias.",e:"Prestar depoimento é dever funcional."}],gab:"B",just:"Art. 102, alíneas 'e' e 'f' da Lei nº 1.943/1954: é dever acatar a autoridade civil e satisfazer com pontualidade os compromissos pecuniários assumidos."},
 {tag:"Lei 16.544/2010 · Conflito",enunciado:"Sargento (14 anos) e Soldado (3 anos) praticam juntos grave transgressão. Com a redação da Lei nº 22.211/2024, na hipótese de conflito entre ADL e Conselho de Disciplina:",
-alts:[
-{t:"Deverá ser instaurada ADL para ambos.",e:"A ADL é destinada a praça com menos de 10 anos na data do fato."},
-{t:"Deverão ser instaurados dois processos separados e sem conexão.",e:"A lei prevê unificação em caso de fatos conexos."},
-{t:"Havendo conflito entre ADL e Conselho de Disciplina, será instaurado Conselho de Disciplina.",c:true},
-{t:"O processo será suspenso até que a praça mais nova complete 10 anos.",e:"Não existe essa regra; resolve-se pela unificação."}],
-gab:"C",just:"Art. 4º, § 3º, inciso I da Lei nº 16.544/2010 (incluído pela Lei nº 22.211/2024): havendo conflito entre ADL e Conselho de Disciplina, instaura-se Conselho de Disciplina."},
+alts:[{t:"Deverá ser instaurada ADL para ambos.",e:"A ADL é destinada a praça com menos de 10 anos na data do fato."},{t:"Deverão ser instaurados dois processos separados e sem conexão.",e:"A lei prevê unificação em caso de fatos conexos."},{t:"Havendo conflito entre ADL e Conselho de Disciplina, será instaurado Conselho de Disciplina.",c:true},{t:"O processo será suspenso até que a praça mais nova complete 10 anos.",e:"Não existe essa regra; resolve-se pela unificação."}],gab:"C",just:"Art. 4º, § 3º, inciso I da Lei nº 16.544/2010 (incluído pela Lei nº 22.211/2024): havendo conflito, instaura-se Conselho de Disciplina."},
 {tag:"Portaria CG 339/2006 · FATD",enunciado:"Em FATD, o Oficial encarregado indefere fundamentadamente pedido da defesa para inquirir 10 testemunhas irrelevantes, por considerá-lo protelatório. Nos termos do Art. 12 da Portaria CG nº 339/2006, após a decisão:",
-alts:[
-{t:"O processo vai direto para julgamento sem nova manifestação do acusado.",e:"O indeferimento não suprime a defesa; o acusado é cientificado e tem novo prazo."},
-{t:"O militar acusado deverá ser cientificado da decisão, tendo novo prazo de 3 dias úteis para defesa.",c:true},
-{t:"O acusado perde o direito de apresentar razões finais.",e:"Não há perda das razões finais; abre-se novo prazo de defesa."},
-{t:"O FATD é automaticamente anulado e convertido em Sindicância.",e:"Não há anulação automática nem conversão."}],
-gab:"B",just:"Art. 12, § 1º da Portaria CG nº 339/2006: o acusado é cientificado do indeferimento e tem novo prazo de 3 dias úteis para defesa."},
+alts:[{t:"O processo vai direto para julgamento sem nova manifestação do acusado.",e:"O indeferimento não suprime a defesa; o acusado é cientificado e tem novo prazo."},{t:"O militar acusado deverá ser cientificado da decisão, tendo novo prazo de 3 dias úteis para defesa.",c:true},{t:"O acusado perde o direito de apresentar razões finais.",e:"Não há perda das razões finais."},{t:"O FATD é automaticamente anulado e convertido em Sindicância.",e:"Não há anulação automática."}],gab:"B",just:"Art. 12, § 1º da Portaria CG nº 339/2006: o acusado é cientificado do indeferimento e tem novo prazo de 3 dias úteis para defesa."},
 {tag:"Portaria CG 338/2006 · Sindicância",enunciado:"A Portaria CG nº 338/2006 regula a Sindicância na PMPR. Em relação à natureza e prazo de conclusão, assinale a correta:",
-alts:[
-{t:"É processo judicial acusatório com prazo de 15 dias corridos.",e:"Não é processo judicial nem acusatório."},
-{t:"É instrumento administrativo de caráter inquisitorial com prazo de 20 dias úteis a contar da autuação.",c:true},
-{t:"É procedimento punitivo direto com prazo de 30 dias corridos.",e:"Não é punitivo direto e o prazo não é 30 dias corridos."},
-{t:"É inquérito criminal com prazo de 10 dias úteis improrrogáveis.",e:"Não é inquérito criminal; o prazo é de 20 dias úteis, prorrogável."}],
-gab:"B",just:"Arts. 1º e 13 da Portaria CG nº 338/2006: instrumento administrativo, inquisitorial, prazo de 20 dias úteis da autuação (prorrogável por até 10 dias úteis)."},
+alts:[{t:"É processo judicial acusatório com prazo de 15 dias corridos.",e:"Não é processo judicial."},{t:"É instrumento administrativo de caráter inquisitorial com prazo de 20 dias úteis a contar da autuação.",c:true},{t:"É procedimento punitivo direto com prazo de 30 dias corridos.",e:"Não é punitivo direto."},{t:"É inquérito criminal com prazo de 10 dias úteis improrrogáveis.",e:"Não é inquérito criminal."}],gab:"B",just:"Arts. 1º e 13 da Portaria CG nº 338/2006: instrumento administrativo, inquisitorial, prazo de 20 dias úteis."},
 {tag:"Portaria CG 883/2022 · IT",enunciado:"A Portaria CG nº 883/2022 disciplina o Inquérito Técnico (IT) na PMPR. O IT tem por finalidade precípua:",
-alts:[
-{t:"Processar e julgar crimes militares cometidos por oficiais em serviço.",e:"O IT não processa nem julga crimes."},
-{t:"Apurar evento danoso envolvendo bem patrimonial permanente sob administração militar, produzindo elementos informativos e esclarecendo circunstâncias.",c:true},
-{t:"Apurar transgressões leves de praças sem estabilidade.",e:"Transgressões leves não são o objeto precípuo do IT."},
-{t:"Apurar desvios éticos em condutas particulares de policiais de folga.",e:"Desvios éticos não são o objeto do IT."}],
-gab:"B",just:"Art. 1º da Portaria CG nº 883/2022: o IT apura evento danoso envolvendo bem patrimonial permanente sob administração militar."},
+alts:[{t:"Processar e julgar crimes militares cometidos por oficiais em serviço.",e:"O IT não processa nem julga crimes."},{t:"Apurar evento danoso envolvendo bem patrimonial permanente sob administração militar, produzindo elementos informativos e esclarecendo circunstâncias.",c:true},{t:"Apurar transgressões leves de praças sem estabilidade.",e:"Transgressões leves não são o objeto do IT."},{t:"Apurar desvios éticos em condutas particulares de policiais de folga.",e:"Desvios éticos não são o objeto do IT."}],gab:"B",just:"Art. 1º da Portaria CG nº 883/2022: apura evento danoso envolvendo bem patrimonial permanente."},
 {tag:"Portarias CG 289/2026 e 813/2026",enunciado:"Em patrulhamento, diante de injusta agressão, um policial efetua disparo com munição letal, atingindo a perna do suspeito (lesão corporal), sem indícios de crime militar. Conforme o Art. 6º da Portaria CG nº 289/2026 (redação da Portaria CG nº 813/2026), a apuração será por meio de:",
-alts:[
-{t:"Inquérito Técnico (IT).",e:"O IT apura dano a bem patrimonial permanente."},
-{t:"FATD.",e:"O FATD apura transgressão disciplinar."},
-{t:"Sindicância.",c:true},
-{t:"Conselho de Disciplina.",e:"O Conselho de Disciplina tem hipóteses específicas."}],
-gab:"C",just:"Art. 6º, § 4º da Portaria CG nº 289/2026 (inserido pela Portaria CG nº 813/2026): lesão corporal por arma de fogo com munição letal em intervenção policial → instaura-se sindicância."},
+alts:[{t:"Inquérito Técnico (IT).",e:"O IT apura dano a bem patrimonial."},{t:"FATD.",e:"O FATD apura transgressão disciplinar."},{t:"Sindicância.",c:true},{t:"Conselho de Disciplina.",e:"Hipóteses específicas."}],gab:"C",just:"Art. 6º, § 4º da Portaria CG nº 289/2026: lesão corporal por arma de fogo com munição letal → instaura-se sindicância."},
 {tag:"RDE 4.346/2002 · Transgressão",enunciado:"O RDE (Decreto nº 4.346/2002) estabelece regras sobre transgressão e a relação entre as esferas cível, criminal e administrativa. Sobre o tema, é correto afirmar:",
-alts:[
-{t:"Quando a conduta estiver tipificada em lei como crime ou contravenção penal, não se caracterizará transgressão disciplinar.",c:true},
-{t:"A absolvição criminal por insuficiência de provas obriga o arquivamento automático do processo disciplinar.",e:"As esferas são independentes; não há arquivamento automático."},
-{t:"É permitida a aplicação de duas penalidades disciplinares para uma única transgressão.",e:"Vedação ao bis in idem administrativo."},
-{t:"O concurso de crime e transgressão de mesma natureza exige duas punições administrativas somadas.",e:"A conduta tipificada como crime não se caracteriza como transgressão."}],
-gab:"A",just:"Art. 14, § 1º do RDE: quando a conduta estiver tipificada em lei como crime ou contravenção penal, não se caracterizará transgressão disciplinar."},
+alts:[{t:"Quando a conduta estiver tipificada em lei como crime ou contravenção penal, não se caracterizará transgressão disciplinar.",c:true},{t:"A absolvição criminal por insuficiência de provas obriga o arquivamento automático do processo disciplinar.",e:"As esferas são independentes."},{t:"É permitida a aplicação de duas penalidades disciplinares para uma única transgressão.",e:"Vedação ao bis in idem."},{t:"O concurso de crime e transgressão de mesma natureza exige duas punições administrativas somadas.",e:"A conduta tipificada como crime não se caracteriza como transgressão."}],gab:"A",just:"Art. 14, § 1º do RDE: crime ou contravenção não se caracteriza como transgressão disciplinar."},
 {tag:"Decreto 5.075/1998 · Uso da Força",enunciado:"O Capítulo IV do Decreto Estadual nº 5.075/1998 disciplina a observância dos Direitos Humanos na atuação policial militar. Em relação ao emprego da força, o regulamento preconiza que:",
-alts:[
-{t:"O uso da força é livremente discricionário para garantir agilidade nas operações.",e:"O uso da força é limitado pela necessidade e pela medida do dever."},
-{t:"Somente será permitido o emprego da força quando estritamente necessária e na medida exigida para o cumprimento do dever.",c:true},
-{t:"A ordem escrita de superior justifica tratamento desumano em interrogatórios.",e:"O Art. 13 do Dec. 5.075/98 proíbe invocar ordens superiores para justificar tortura."},
-{t:"É permitido uso de força para compelir o cidadão a confessar infrações administrativas.",e:"É vedado o uso de força para compelir confissão."}],
-gab:"B",just:"Art. 12 do Anexo do Decreto nº 5.075/1998: somente será permitido o emprego da força quando estritamente necessária e na medida exigida para o cumprimento do dever."}
+alts:[{t:"O uso da força é livremente discricionário para garantir agilidade nas operações.",e:"Limitado pela necessidade."},{t:"Somente será permitido o emprego da força quando estritamente necessária e na medida exigida para o cumprimento do dever.",c:true},{t:"A ordem escrita de superior justifica tratamento desumano em interrogatórios.",e:"O Art. 13 proíbe invocar ordens superiores para tortura."},{t:"É permitido uso de força para compelir o cidadão a confessar infrações administrativas.",e:"É vedado compelir confissão."}],gab:"B",just:"Art. 12 do Anexo do Decreto nº 5.075/1998: emprego da força quando estritamente necessária."}
 ];
-const L=["A","B","C","D"];
-const $=id=>document.getElementById(id);
+  const L=["A","B","C","D"],$=id=>document.getElementById(id);
 const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
 const enc=(q,al)=>encodeURIComponent(btoa(q.join("-")+"|"+al.map(x=>x.join("")).join("-")));
-const dec=h=>{try{const s=atob(decodeURIComponent(h));const[q,a]=s.split("|");const qo=q.split("-").map(Number);const ao=a.split("-").map(x=>x.split("").map(Number));return qo.length===BANCO.length?{qo,ao}:null;}catch(e){return null;}};
-
+const dec=h=>{try{const s=atob(decodeURIComponent(h)),[q,a]=s.split("|");const qo=q.split("-").map(Number),ao=a.split("-").map(x=>x.split("").map(Number));return qo.length===BANCO.length?{qo,ao}:null;}catch(e){return null;}};
 let modo="ordem",ordemQ=[],ordemAlt=[],resp=[],conf=[],atual=0;
-
 $("modeOrdem").onclick=()=>{modo="ordem";$("modeOrdem").classList.add("sel");$("modeAleatorio").classList.remove("sel");$("linkBox").classList.remove("show");};
 $("modeAleatorio").onclick=()=>{modo="aleatorio";$("modeAleatorio").classList.add("sel");$("modeOrdem").classList.remove("sel");};
-$("btnComecar").onclick=iniciar;
-
-function iniciar(){
-  const h=location.hash.replace("#","");
-  let usou=false;
-  if(h){const d=dec(h);if(d){ordemQ=d.qo;ordemAlt=d.ao;usou=true;}}
-  if(!usou){
-    if(modo==="aleatorio"){
-      ordemQ=sh([...Array(BANCO.length).keys()]);
-      ordemAlt=ordemQ.map(()=>sh([0,1,2,3]));
-      const url=location.origin+location.pathname+"#"+enc(ordemQ,ordemAlt);
-      $("linkBox").innerHTML="<b>🔗 Link com esta ordem aleatória:</b><br>"+url;
-      $("linkBox").classList.add("show");
-    }else{
-      ordemQ=[...Array(BANCO.length).keys()];
-      ordemAlt=ordemQ.map(()=>[0,1,2,3]);
-    }
-  }
-  resp=new Array(BANCO.length).fill(undefined);
-  conf=new Array(BANCO.length).fill(false);
-  atual=0;
-  $("startCard").classList.add("hidden");
-  $("resultado").classList.remove("show");
-  $("quizWrap").classList.add("show");
-  render();
-}
-
-function render(){
-  const pos=atual,qIdx=ordemQ[pos],q=BANCO[qIdx],ao=ordemAlt[pos];
-  const area=$("quizArea");area.innerHTML="";
-  const card=document.createElement("div");card.className="q-card";
-  card.innerHTML='<div class="q-meta"><span class="q-num">Questão '+(pos+1)+' de '+BANCO.length+'</span><span class="tag">'+q.tag+'</span></div><div class="q-text">'+q.enunciado+'</div>';
-  const escolhida=resp[pos],jaConf=conf[pos];
-  ao.forEach((origIdx,dispIdx)=>{
-    const alt=q.alts[origIdx];
-    const d=document.createElement("div");d.className="alt";
-    d.innerHTML='<span class="letter">'+L[dispIdx]+'</span><span>'+alt.t+'</span>';
-    if(escolhida===origIdx)d.classList.add("sel");
-    if(jaConf){
-      d.classList.add("locked");
-      if(alt.c)d.classList.add("correct");
-      if(escolhida===origIdx&&!alt.c)d.classList.add("wrong");
-    }else{
-      d.onclick=()=>{if(!conf[pos]){resp[pos]=origIdx;render();}};
-    }
-    card.appendChild(d);
-  });
-  if(jaConf){
-    const acertou=resp[pos]!==undefined&&q.alts[resp[pos]].c===true;
-    const fb=document.createElement("div");fb.className="feedback show "+(acertou?"ok":"no");
-    const tit=document.createElement("span");tit.className="titulo";
-    tit.textContent=acertou?"✅ Você acertou esta questão!":"❌ Você errou esta questão.";
-    fb.appendChild(tit);
-    ao.forEach((origIdx,dispIdx)=>{
-      const alt=q.alts[origIdx];
-      const it=document.createElement("div");
-      it.className="fb-item "+(alt.c?"cert":"errad");
-      if(alt.c)it.innerHTML='<b>✔ Alternativa '+L[dispIdx]+' (CORRETA):</b><span>'+alt.t+'</span>';
-      else it.innerHTML='<b>✘ Alternativa '+L[dispIdx]+' (INCORRETA):</b><span>'+alt.t+'</span><span><i>Por que está errada:</i> '+alt.e+'</span>';
-      fb.appendChild(it);
-    });
-    const g=document.createElement("div");g.className="fb-gab";
-    const letraCerta=L[ao.findIndex(o=>q.alts[o].c)];
-    g.innerHTML='<b>Gabarito: '+letraCerta+'</b> — '+q.just;
-    fb.appendChild(g);
-    card.appendChild(fb);
-  }
-  area.appendChild(card);
-  $("pillQ").textContent="Questão "+(pos+1)+" de "+BANCO.length;
-  const r=resp.filter(x=>x!==undefined).length;
-  $("pillResp").textContent=r+" respondida"+(r===1?"":"s");
-  $("barFill").style.width=(r/BANCO.length*100)+"%";
-  $("btnAnterior").disabled=pos===0;
-  $("btnProxima").disabled=pos===BANCO.length-1;
-  $("btnConferir").disabled=jaConf||resp[pos]===undefined;
-  $("btnConferir").textContent=jaConf?"✔ Conferida":"🔍 Conferir esta questão";
-}
-
+$("btnComecar").onclick=()=>{const h=location.hash.replace("#","");let usou=0;if(h){const d=dec(h);if(d){ordemQ=d.qo;ordemAlt=d.ao;usou=1;}}if(!usou){if(modo==="aleatorio"){ordemQ=sh([...Array(BANCO.length).keys()]);ordemAlt=ordemQ.map(()=>sh([0,1,2,3]));$("linkBox").innerHTML="<b>🔗 Link com esta ordem:</b><br>"+location.origin+location.pathname+"#"+enc(ordemQ,ordemAlt);$("linkBox").classList.add("show");}else{ordemQ=[...Array(BANCO.length).keys()];ordemAlt=ordemQ.map(()=>[0,1,2,3]);}}resp=new Array(BANCO.length).fill(undefined);conf=new Array(BANCO.length).fill(false);atual=0;$("startCard").classList.add("hidden");$("resultado").classList.remove("show");$("quizWrap").classList.add("show");render();};
+function render(){const pos=atual,qIdx=ordemQ[pos],q=BANCO[qIdx],ao=ordemAlt[pos],area=$("quizArea");area.innerHTML="";const card=document.createElement("div");card.className="q-card";card.innerHTML='<div class="q-meta"><span class="q-num">Questão '+(pos+1)+' de '+BANCO.length+'</span><span class="tag">'+q.tag+'</span></div><div class="q-text">'+q.enunciado+'</div>';const escolhida=resp[pos],jaConf=conf[pos];ao.forEach((origIdx,dispIdx)=>{const alt=q.alts[origIdx],d=document.createElement("div");d.className="alt";d.innerHTML='<span class="letter">'+L[dispIdx]+'</span><span>'+alt.t+'</span>';if(escolhida===origIdx)d.classList.add("sel");if(jaConf){d.classList.add("locked");if(alt.c)d.classList.add("correct");if(escolhida===origIdx&&!alt.c)d.classList.add("wrong");}else{d.onclick=()=>{if(!conf[pos]){resp[pos]=origIdx;render();}};}card.appendChild(d);});if(jaConf){const acertou=resp[pos]!==undefined&&q.alts[resp[pos]].c===true,fb=document.createElement("div");fb.className="feedback show "+(acertou?"ok":"no");fb.innerHTML='<span class="titulo">'+(acertou?"✅ Você acertou!":"❌ Você errou.")+'</span>';ao.forEach((origIdx,dispIdx)=>{const alt=q.alts[origIdx],it=document.createElement("div");it.className="fb-item "+(alt.c?"cert":"errad");if(alt.c)it.innerHTML='<b>✔ Alternativa '+L[dispIdx]+' (CORRETA):</b><span>'+alt.t+'</span>';else it.innerHTML='<b>✘ Alternativa '+L[dispIdx]+' (INCORRETA):</b><span>'+alt.t+'</span><span><i>Por que errada:</i> '+alt.e+'</span>';fb.appendChild(it);});const g=document.createElement("div");g.className="fb-gab";g.innerHTML='<b>Gabarito: '+L[ao.findIndex(o=>q.alts[o].c)]+'</b> — '+q.just;fb.appendChild(g);card.appendChild(fb);}area.appendChild(card);$("pillQ").textContent="Questão "+(pos+1)+" de "+BANCO.length;const r=resp.filter(x=>x!==undefined).length;$("pillResp").textContent=r+" respondida"+(r===1?"":"s");$("barFill").style.width=(r/BANCO.length*100)+"%";$("btnAnterior").disabled=pos===0;$("btnProxima").disabled=pos===BANCO.length-1;$("btnConferir").disabled=jaConf||resp[pos]===undefined;$("btnConferir").textContent=jaConf?"✔ Conferida":"🔍 Conferir esta questão";}
 $("btnAnterior").onclick=()=>{if(atual>0){atual--;render();}};
 $("btnProxima").onclick=()=>{if(atual<BANCO.length-1){atual++;render();}};
 $("btnConferir").onclick=()=>{if(resp[atual]!==undefined){conf[atual]=true;render();}};
-$("btnResultado").onclick=()=>mostrarResultado();
-
-function mostrarResultado(){
-  let ac=0,er=0,rs=0;
-  for(let p=0;p<BANCO.length;p++){
-    if(resp[p]!==undefined){rs++;if(BANCO[ordemQ[p]].alts[resp[p]].c)ac++;else er++;}
-  }
-  const pct=rs?Math.round(ac/rs*100):0;
-  $("pct").textContent=pct+"%";
-  $("stAcertos").textContent=ac;$("stErros").textContent=er;$("stTotal").textContent=rs;
-  $("resumo").textContent="Você acertou "+ac+" de "+rs+" respondida(s) — total de "+BANCO.length+" questões.";
-  const m=$("mention");
-  if(!rs){m.className="mention mid";m.textContent="Nenhuma questão respondida ainda.";}
-  else if(pct>=90){m.className="mention alto";m.textContent="🏆 Excelente!";}
-  else if(pct>=70){m.className="mention mid";m.textContent="👍 Bom desempenho!";}
-  else{m.className="mention baixo";m.textContent="📚 Continue estudando!";}
-  const rv=$("review");rv.innerHTML="<h3>📋 Revisão questão a questão</h3>";
-  for(let p=0;p<BANCO.length;p++){
-    const q=BANCO[ordemQ[p]];const r=resp[p];
+$("btnResultado").onclick=()=>{let ac=0,er=0,rs=0;for(let p=0;p<BANCO.length;p++){if(resp[p]!==undefined){rs++;if(BANCO[ordemQ[p]].alts[resp[p]].c)ac++;else er++;}}const pct=rs?Math.round(ac/rs*100):0;$("pct").textContent=pct+"%";$("stAcertos").textContent=ac;$("stErros").textContent=er;$("stTotal").textContent=rs;$("resumo").textContent="Você acertou "+ac+" de "+rs+" respondida(s) — total de "+BANCO.length+" questões.";const m=$("mention");if(!rs){m.className="mention mid";m.textContent="Nenhuma questão respondida ainda.";}else if(pct>=90){m.className="mention alto";m.textContent="🏆 Excelente!";}else if(pct>=70){m.className="mention mid";m.textContent="👍 Bom desempenho!";}else{m.className="mention baixo";m.textContent="📚 Continue estudando!";}const rv=$("review");rv.innerHTML="<h3>📋 Revisão</h3>";for(let p=0;p<BANCO.length;p++){const q=BANCO[ordemQ[p]],r=resp[p],it=document.createElement("div");it.className="rev-item";if(r===undefined){it.classList.add("no");it.innerHTML='<b>Questão '+(p+1)+'</b> — ⬜ Não respondida';}else if(q.alts[r].c){it.classList.add("ok");it.innerHTML='<b>Questão '+(p+1)+'</b> — ✅ Acertou';}else{it.classList.add("no");it.innerHTML='<b>Questão '+(p+1)+'</b> — ❌ Errou<span class="det">Sua resposta: '+L[ordemAlt[p].indexOf(r)]+' · Gabarito: '+L[ordemAlt[p].findIndex(o=>q.alts[o].c)]+'</span>';}rv.appendChild(it);}$("quizWrap").classList.remove("show");$("resultado").classList.add("show");window.scrollTo({top:0,behavior:"smooth"});};
+$("btnRefazer").onclick=()=>{resp=new Array(BANCO.length).fill(undefined);conf=new Array(BANCO.length).fill(false);atual=0;$("resultado").classList.remove("show");$("quizWrap").classList.add("show");render();};
+$("btnInicio").onclick=()=>{$("resultado").classList.remove("show");$("quizWrap").classList.remove("show");$("startCard").classList.remove("hidden");history.replaceState(null,"",location.pathname);};
+</script>
+</body>
+</html>
