@@ -120,9 +120,7 @@ footer{text-align:center;padding:20px;color:#7b8a9a;font-size:.8rem}
   </div>
 </div>
 <footer>Material de revisão — uso didático.</footer>
-<script>
-  const BANCO=[
-{tag:"Lei 1.943/1954 · Custódia do Militar",enunciado:"Durante a folga, um Soldado da PMPR é preso em flagrante por crime comum por autoridade policial civil, que lavra o flagrante e o mantém na cela comum da delegacia por 3 dias. À luz da Lei Estadual nº 1.943/1954, a conduta da autoridade civil quanto à custódia foi:",
+<script>const BANCO=[{tag:"Lei 1.943/1954 · Custódia do Militar",enunciado:"Durante a folga, um Soldado da PMPR é preso em flagrante por crime comum por autoridade policial civil, que lavra o flagrante e o mantém na cela comum da delegacia por 3 dias. À luz da Lei Estadual nº 1.943/1954, a conduta da autoridade civil quanto à custódia foi:",
 alts:[
 {t:"Correta, pois em crimes comuns cometidos durante a folga cessa a prerrogativa de recolhimento em Unidade Militar.",e:"Não há essa cessação. A lei garante o recolhimento em unidade militar mesmo em crime comum."},
 {t:"Incorreta, pois, efetuada a prisão, a autoridade policial civil deve fazer a entrega do preso imediatamente à autoridade militar após a lavratura do flagrante.",c:true},
@@ -193,7 +191,7 @@ alts:[
 {t:"É permitido uso de força para compelir o cidadão a confessar infrações administrativas.",e:"É vedado o uso de força para compelir confissão."}],
 gab:"B",just:"Art. 12 do Anexo do Decreto nº 5.075/1998: somente será permitido o emprego da força quando estritamente necessária e na medida exigida para o cumprimento do dever."}
 ];
-  const L=["A","B","C","D"];
+const L=["A","B","C","D"];
 const $=id=>document.getElementById(id);
 const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
 const enc=(q,al)=>encodeURIComponent(btoa(q.join("-")+"|"+al.map(x=>x.join("")).join("-")));
